@@ -26,35 +26,35 @@ export class AuthError extends Error {
 }
 
 export class InvalidTokenError extends AuthError {
-  constructor(message = 'Token geçersiz') {
+  constructor(message = 'Invalid token') {
     super(message, 'INVALID_TOKEN')
     this.name = 'InvalidTokenError'
   }
 }
 
 export class TokenExpiredError extends AuthError {
-  constructor(message = 'Token süresi dolmuş') {
+  constructor(message = 'Token expired') {
     super(message, 'TOKEN_EXPIRED')
     this.name = 'TokenExpiredError'
   }
 }
 
 export class SessionNotFoundError extends AuthError {
-  constructor(message = 'Session bulunamadı') {
+  constructor(message = 'Session not found') {
     super(message, 'SESSION_NOT_FOUND')
     this.name = 'SessionNotFoundError'
   }
 }
 
 export class SessionExpiredError extends AuthError {
-  constructor(message = 'Session süresi dolmuş') {
+  constructor(message = 'Session expired') {
     super(message, 'SESSION_EXPIRED')
     this.name = 'SessionExpiredError'
   }
 }
 
 export class UnauthorizedError extends AuthError {
-  constructor(message = 'Yetkilendirme gerekli') {
+  constructor(message = 'Unauthorized') {
     super(message, 'UNAUTHORIZED')
     this.name = 'UnauthorizedError'
   }
@@ -68,7 +68,7 @@ export class ConfigurationError extends AuthError {
 }
 
 export class InvalidCredentialsError extends AuthError {
-  constructor(message = 'Geçersiz kimlik bilgileri') {
+  constructor(message = 'Invalid credentials') {
     super(message, 'INVALID_CREDENTIALS')
     this.name = 'InvalidCredentialsError'
   }
