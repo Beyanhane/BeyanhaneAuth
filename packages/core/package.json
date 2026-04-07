@@ -1,0 +1,57 @@
+{
+  "name": "@beyanhane-auth/core",
+  "version": "0.1.0",
+  "private": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./tokens": {
+      "import": "./dist/tokens/index.mjs",
+      "require": "./dist/tokens/index.js",
+      "types": "./dist/tokens/index.d.ts"
+    },
+    "./session": {
+      "import": "./dist/session/index.mjs",
+      "require": "./dist/session/index.js",
+      "types": "./dist/session/index.d.ts"
+    },
+    "./crypto": {
+      "import": "./dist/crypto/index.mjs",
+      "require": "./dist/crypto/index.js",
+      "types": "./dist/crypto/index.d.ts"
+    },
+    "./errors": {
+      "import": "./dist/errors/index.mjs",
+      "require": "./dist/errors/index.js",
+      "types": "./dist/errors/index.d.ts"
+    },
+    "./types": {
+      "import": "./dist/types/index.mjs",
+      "require": "./dist/types/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0"
+  },
+  "dependencies": {
+    "jose": "^5.0.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "vitest": "^1.0.0",
+    "@types/node": "^20.0.0"
+  }
+}

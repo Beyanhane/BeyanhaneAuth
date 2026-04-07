@@ -1,0 +1,21 @@
+
+{
+  "name": "beyanhane-auth",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "test": "vitest run",
+    "lint": "eslint .",
+    "dev": "npm run dev --workspaces --if-present"
+  },
+  "devDependencies": {
+    "typescript": "^5.x",
+    "tsup": "^8.x",
+    "vitest": "^1.x",
+    "eslint": "^8.x",
+    "@typescript-eslint/eslint-plugin": "^7.x"
+  }
+}
