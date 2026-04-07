@@ -159,3 +159,26 @@ export interface AuthConfig {
   /** Debug mode */
   debug?: boolean
 }
+
+// ─── Internal Request/Response ───────────────────────────────────────────────
+
+export interface BeyanhaneRequest {
+  method: string
+  url: string
+  query?: Record<string, string | string[]>
+  body?: any
+  headers?: Record<string, string>
+  cookies?: Record<string, string>
+}
+
+export interface BeyanhaneResponse {
+  status?: number
+  body?: any
+  headers?: Record<string, string>
+  cookies?: Array<{
+    name: string
+    value: string
+    options?: Record<string, unknown>
+  }>
+  redirect?: string
+}

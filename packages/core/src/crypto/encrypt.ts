@@ -1,6 +1,8 @@
+import { base64url } from 'jose'
+
 const ALGORITHM = 'AES-GCM'
 const KEY_LENGTH = 256
-const IV_LENGTH = 12 // AES-GCM için standart
+const IV_LENGTH = 12 // Standard for AES-GCM
 
 async function deriveKey(secret: string): Promise<CryptoKey> {
   const encoder = new TextEncoder()
@@ -18,22 +20,22 @@ export async function encrypt(plaintext: string, secret: string): Promise<string
 
   const ciphertext = await crypto.subtle.encrypt({ name: ALGORITHM, iv }, key, encoded)
 
-  // iv + ciphertext'i birleştirip base64 yap
+  // iv + ciphertext'i birleştirip base64url yap
   const combined = new Uint8Array(iv.byteLength + ciphertext.byteLength)
   combined.set(iv, 0)
   combined.set(new Uint8Array(ciphertext), iv.byteLength)
 
-  return Buffer.from(combined).toString('base64url')
+  return base64url.encode(combined)
 }
 
 export async function decrypt(ciphertextB64: string, secret: string): Promise<string> {
   const key = await deriveKey(secret)
-  const combined = Buffer.from(ciphertextB64, 'base64url')
+  const combined = base64url.decode(ciphertextB64)
 
   const iv = combined.subarray(0, IV_LENGTH)
   const ciphertext = combined.subarray(IV_LENGTH)
 
-  const plaintext = await crypto.subtle.decrypt({ name: ALGORITHM, iv }, key, ciphertext)
+  const plaintext = await crypto.subtle.decrypt({ name: ALGORITHM, iv: iv as any }, key, ciphertext as any)
 
   return new TextDecoder().decode(plaintext)
 }
