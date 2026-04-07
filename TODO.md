@@ -12,7 +12,7 @@ Bu dosya, projenin tamamen modüler ve her türlü framework'e (Next.js, Express
 
 ## 🛠 2. Core Motoru Geliştirmeleri
 - [ ] **AuthHandler İşleyicisi**: Kullanıcının kendi API rotasında (`/api/auth/[...path]`) çağırabileceği merkezi işleyici.
-- [ ] **Gelişmiş Callbacks Sistemi**: `signIn`, `jwt`, `session` gibi kritik aşamalar için kullanıcıya müdahale şansı.
+- [x] **Gelişmiş Callbacks Sistemi**: `signIn`, `jwt`, `session` gibi kritik aşamalar için kullanıcıya müdahale şansı.
 - [ ] **CSRF & Security Helpers**: CSRF token üretimi, cookie ayarları ve Cross-Origin güvenliği için yardımcı araçlar.
 
 ## 🔐 3. Güvenlik ve Protokoller

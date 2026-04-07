@@ -10,6 +10,23 @@ export interface User {
   raw?: Record<string, unknown>
 }
 
+// ─── Account ─────────────────────────────────────────────────────────────────
+
+export interface Account {
+  id: string
+  userId: string
+  provider: string
+  providerAccountId: string
+  type: 'oauth' | 'credentials' | 'email'
+  access_token?: string
+  expires_at?: number
+  token_type?: string
+  scope?: string
+  id_token?: string
+  session_state?: string
+  refresh_token?: string
+}
+
 // ─── Token ───────────────────────────────────────────────────────────────────
 
 export interface AccessToken {
@@ -70,6 +87,50 @@ export interface AuthAdapter {
   findSession(token: string): Promise<(Session & { userId: string }) | null>
   deleteSession(token: string): Promise<void>
   deleteExpiredSessions(): Promise<void>
+
+  linkAccount(account: Omit<Account, 'id'>): Promise<Account>
+  unlinkAccount(provider: string, providerAccountId: string): Promise<void>
+  findAccount(provider: string, providerAccountId: string): Promise<Account | null>
+}
+
+// ─── Callbacks ───────────────────────────────────────────────────────────────
+
+export interface Callbacks {
+  /**
+   * Called whenever a user signs in.
+   * Return true to allow sign in, false to deny, or a string to redirect.
+   */
+  signIn?: (params: {
+    user: User
+    account: Account | null
+    credentials?: Record<string, unknown>
+  }) => Promise<boolean | string>
+
+  /**
+   * Called whenever a JWT is created or updated.
+   * Use this to add custom claims to the JWT.
+   */
+  jwt?: (params: {
+    token: JWTPayload
+    user?: User
+    account?: Account | null
+    isNewUser?: boolean
+  }) => Promise<JWTPayload>
+
+  /**
+   * Called whenever a session is checked.
+   * Control what is returned to the client.
+   */
+  session?: (params: {
+    session: Session
+    token: JWTPayload
+    user?: User
+  }) => Promise<Session>
+
+  /**
+   * Called on redirect.
+   */
+  redirect?: (params: { url: string; baseUrl: string }) => Promise<string>
 }
 
 // ─── Configuration ───────────────────────────────────────────────────────────
@@ -90,5 +151,11 @@ export interface AuthConfig {
   /** Cookie settings */
   cookies?: {
     sessionToken?: { name: string; options?: Record<string, unknown> }
+    csrfToken?: { name: string; options?: Record<string, unknown> }
+    callbackUrl?: { name: string; options?: Record<string, unknown> }
   }
+  /** Event callbacks */
+  callbacks?: Callbacks
+  /** Debug mode */
+  debug?: boolean
 }
